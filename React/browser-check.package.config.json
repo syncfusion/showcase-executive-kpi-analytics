@@ -1,0 +1,74 @@
+{
+  "baseUrl": "http://127.0.0.1:5180/executive-kpi-analytics/react/",
+  "routes": [
+    {
+      "name": "overview",
+      "path": "./",
+      "settleMs": 5000
+    },
+    {
+      "name": "overview-ai-cta",
+      "path": "./",
+      "click": [
+        "Ask AI for decision support"
+      ],
+      "expectHeading": "AI Insights",
+      "settleMs": 5000,
+      "themeSwitch": false
+    },
+    {
+      "name": "kpis",
+      "path": "./",
+      "navigate": "KPI Drilldowns",
+      "settleMs": 5000
+    },
+    {
+      "name": "pivot",
+      "path": "./",
+      "navigate": "Pivot Analytics",
+      "settleMs": 5000,
+      "themeSwitch": false,
+      "clickables": false
+    },
+    {
+      "name": "regions",
+      "path": "./",
+      "navigate": "Regional Performance",
+      "settleMs": 5000,
+      "zoomMaps": false,
+      "themeSwitch": false
+    },
+    {
+      "name": "insights",
+      "path": "./",
+      "navigate": "AI Insights",
+      "settleMs": 5000,
+      "themeSwitch": false
+    }
+  ],
+  "themes": {
+    "light": {
+      "localStorage": {
+        "executive-kpi-analytics:theme": "light"
+      }
+    },
+    "dark": {
+      "localStorage": {
+        "executive-kpi-analytics:theme": "dark"
+      }
+    }
+  },
+  "sidebar": "#executive-navigation",
+  "menuButton": "#executive-menu-button",
+  "screenshotDir": "../../validation/screenshots/package",
+  "allowTrialBanner": false,
+  "themeSwitch": {
+    "button": "Switch to (light|dark) theme",
+    "settleMs": 2000
+  },
+  "colourRules": [],
+  "loading": {
+    "network": "fast3g",
+    "latencyMs": 1200
+  }
+}

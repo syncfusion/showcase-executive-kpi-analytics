@@ -1,0 +1,796 @@
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  color: #172033;
+  background: #f6f8fb;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+}
+button {
+  font: inherit;
+}
+.application,
+.app-shell {
+  --bg: #f6f8fb;
+  --surface: #fff;
+  --muted: #667085;
+  --text: #172033;
+  --border: #e5e9f0;
+  --brand: #175cd3;
+  --brand-soft: #eef4ff;
+  --success: #027a48;
+  --warning: #b54708;
+  --danger: #b42318;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+}
+.application[data-theme='dark'],
+:root[data-theme='dark'] .app-shell {
+  --bg: #0f172a;
+  --surface: #111827;
+  --muted: #94a3b8;
+  --text: #e5e7eb;
+  --border: #334155;
+  --brand: #93c5fd;
+  --brand-soft: #172554;
+  --success: #86efac;
+  --warning: #fbbf24;
+  --danger: #fca5a5;
+  color-scheme: dark;
+}
+/* Syncfusion's accent is the app's brand (design-system.md, "Interaction states"): the Tailwind 3 theme's
+   indigo primary drives focus rings, selections, toolbar and AI AssistView accents and primary buttons.
+   `:root:root` outranks the theme's own :root, which loads later. In dark mode the accent used as text
+   (--color-sf-primary) is the light brand blue, and fills under white text are a deeper blue (5.2:1):
+   the theme's #6366f1 read 3.97:1 as AssistView toolbar text on the dark surface. */
+:root:root {
+  --color-sf-primary: #175cd3;
+  --color-sf-primary-bg-color: #175cd3;
+  --color-sf-primary-border-color: #175cd3;
+  --color-sf-primary-bg-color-hover: #1849a9;
+  --color-sf-primary-border-color-hover: #1849a9;
+  --color-sf-primary-bg-color-focus: #1849a9;
+  --color-sf-primary-border-color-focus: #1849a9;
+  --color-sf-primary-bg-color-pressed: #194185;
+  --color-sf-primary-border-color-pressed: #194185;
+  --color-sf-primary-bg-color-disabled: #b2ccff;
+  --color-sf-primary-border-color-disabled: #b2ccff;
+  --color-sf-primary-outline: #175cd3;
+  --color-sf-primary-dark: #1849a9;
+  --color-sf-primary-darker: #194185;
+  --color-sf-primary-light: #84adff;
+  --color-sf-primary-lighter: #eff4ff;
+}
+:root:root[data-theme='dark'] {
+  --color-sf-primary: #93c5fd;
+  --color-sf-primary-bg-color: #2563eb;
+  --color-sf-primary-border-color: #2563eb;
+  --color-sf-primary-bg-color-hover: #1d4ed8;
+  --color-sf-primary-border-color-hover: #1d4ed8;
+  --color-sf-primary-bg-color-focus: #1d4ed8;
+  --color-sf-primary-border-color-focus: #1d4ed8;
+  --color-sf-primary-bg-color-pressed: #1e40af;
+  --color-sf-primary-border-color-pressed: #1e40af;
+  --color-sf-primary-bg-color-disabled: #1e3a8a;
+  --color-sf-primary-border-color-disabled: #1e3a8a;
+  --color-sf-primary-outline: #93c5fd;
+  --color-sf-primary-dark: #60a5fa;
+  --color-sf-primary-darker: #3b82f6;
+  --color-sf-primary-light: #1e3a8a;
+  --color-sf-primary-lighter: #172554;
+}
+/* AI AssistView paints its active header text with the primary fill (#2563eb in dark mode, 3.4:1 on the
+   surface) through a seven-class rule with hover variants; text takes the brand ink. */
+.e-aiassistview .e-view-header .e-toolbar-item .e-tbar-btn-text {
+  color: var(--brand) !important;
+}
+.health-page {
+  max-width: 680px;
+  margin: 12vh auto;
+  padding: 2rem;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  font-family: Inter, system-ui, sans-serif;
+}
+.health-page h1 {
+  margin: 1rem 0 0.5rem;
+}
+.health-page a {
+  color: var(--brand);
+  font-weight: 700;
+}
+.sidebar {
+  width: 248px;
+  flex: 0 0 248px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 22px 14px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 8px 28px;
+}
+.brand > span {
+  width: 35px;
+  height: 35px;
+  display: grid;
+  place-items: center;
+  background: var(--brand);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 800;
+}
+.brand strong {
+  display: block;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+.brand small {
+  color: var(--muted);
+  font-size: 11px;
+}
+nav {
+  display: grid;
+  gap: 4px;
+}
+nav .nav-button.e-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 11px;
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  border-radius: 7px;
+  padding: 11px 12px;
+  text-align: left;
+  text-transform: none;
+  letter-spacing: normal;
+  line-height: 1.25;
+  box-shadow: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+nav .nav-button.e-btn svg {
+  flex: 0 0 auto;
+}
+nav .nav-button.e-btn:hover,
+nav .nav-active {
+  background: var(--brand-soft);
+  color: var(--brand);
+  font-weight: 650;
+}
+.sidebar-footer {
+  margin-top: auto;
+  padding: 16px 8px 2px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.sidebar-footer p {
+  margin: 10px 0 0;
+}
+.data-chip {
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  font-weight: 700;
+  padding: 4px 6px;
+  border-radius: 4px;
+  color: var(--success);
+  background: color-mix(in srgb, var(--success) 12%, transparent);
+}
+.workspace {
+  min-width: 0;
+  flex: 1;
+  overflow-x: hidden;
+}
+.topbar {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 28px;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  backdrop-filter: blur(12px);
+}
+.crumb {
+  color: var(--muted);
+  font-size: 13px;
+}
+.crumb span {
+  padding: 0 6px;
+}
+.topbar-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.dataset-status {
+  color: var(--brand);
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+.profile-pill {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 5px 9px;
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.icon-button {
+  min-width: 34px !important;
+  height: 34px;
+  padding: 0 !important;
+  display: inline-grid !important;
+  place-items: center;
+}
+.mobile-menu {
+  display: none !important;
+  margin-right: 10px;
+}
+main {
+  min-width: 0;
+  width: 100%;
+  padding: 24px clamp(16px, 3vw, 42px) 48px;
+  overflow-x: hidden;
+}
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-bottom: 16px;
+}
+.page-header h1 {
+  margin: 0 0 5px;
+  font-size: clamp(26px, 3vw, 34px);
+  letter-spacing: -0.035em;
+}
+
+.application[data-theme='dark'] #regional-map_MapBorder,
+.application[data-theme='dark'] #regional-map_MapAreaBorder {
+  fill: var(--surface) !important;
+}
+
+/* Legend text sits on the map surface; shape labels take their ink from the palette (mapLabel). */
+.application[data-theme='dark'] #regional-map_svg [id*='Legend'] text,
+.application[data-theme='dark'] #regional-map_svg text[id*='Legend'] {
+  fill: var(--text) !important;
+}
+.page-header p,
+.panel-heading p {
+  color: var(--muted);
+  margin: 0;
+}
+.filters {
+  display: flex;
+  gap: 50px;
+  flex-wrap: wrap;
+  align-items: end;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 10px;
+  margin-bottom: 22px;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.06);
+}
+.filter-intro {
+  display: grid;
+  align-content: center;
+  gap: 3px;
+  min-width: 132px;
+  padding: 0 4px;
+}
+.filter-intro span {
+  color: var(--brand);
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+}
+.filter-intro small {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.3;
+}
+.filters label,
+.inline-select {
+  display: grid;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 155px;
+}
+.filters label {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+.filter-period {
+  width: min(230px, 100%);
+}
+/* Tailwind 3 caps the preset list at 192px (five rows), which hid "Full data" and "Custom Range" behind a
+   scroll. Show the whole short list; with the calendar open, the picker sets the list height itself. */
+.e-daterangepicker.e-popup.period-range .e-presets {
+  max-height: none;
+}
+.filter-region {
+  width: min(190px, 100%);
+}
+.filter-unit {
+  width: min(200px, 100%);
+}
+.filters .e-control-wrapper,
+.inline-select .e-control-wrapper {
+  min-width: 160px;
+}
+.filters .e-control-wrapper {
+  width: 100%;
+}
+.reset-filter.e-btn {
+  flex: 0 0 auto;
+  align-self: end;
+  border: 1px solid color-mix(in srgb, var(--brand) 24%, var(--border));
+  background: var(--brand-soft);
+  color: var(--brand);
+  font-weight: 650;
+}
+.reset-filter.e-btn:hover {
+  border-color: color-mix(in srgb, var(--brand) 44%, var(--border));
+  background: color-mix(in srgb, var(--brand-soft) 72%, var(--surface));
+  color: var(--brand);
+}
+.filter-chip.e-btn {
+  flex: 0 0 auto;
+  align-self: end;
+  border: 1px solid color-mix(in srgb, var(--brand) 38%, var(--border));
+  background: color-mix(in srgb, var(--brand-soft) 82%, var(--surface));
+  color: var(--brand);
+  border-radius: 999px;
+  padding: 7px 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 650;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--brand) 8%, transparent);
+}
+.filter-chip.e-btn:hover {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+  color: var(--brand);
+}
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.kpi-card {
+  text-align: left;
+  min-height: 150px;
+  padding: 20px;
+  position: relative;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.07);
+}
+.kpi-card:hover {
+  border-color: var(--brand);
+}
+.kpi-card:focus-visible,
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--brand) 50%, transparent);
+  outline-offset: 2px;
+}
+.kpi-label,
+.kpi-note {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.kpi-card strong {
+  display: block;
+  text-align: center;
+  font-size: 28px;
+  letter-spacing: -0.04em;
+  margin: 15px 0 9px;
+}
+.kpi-icon {
+  position: absolute;
+  right: 17px;
+  top: 17px;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  background: var(--brand-soft);
+  color: var(--brand);
+  border-radius: 8px;
+}
+.regions,
+.insights {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+}
+.dashboard-shell {
+  width: 100%;
+  min-width: 0;
+}
+.overview-dashboard {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  width: 100%;
+}
+.overview-trend-panel {
+  grid-column: span 3;
+}
+.overview-chart {
+  min-height: 260px;
+}
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.06);
+  padding: 20px;
+  min-width: 0;
+}
+.panel.wide {
+  min-width: 0;
+}
+.panel-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: start;
+  margin-bottom: 16px;
+}
+.panel-heading h2,
+.context-card h2 {
+  font-size: 16px;
+  margin: 0 0 4px;
+}
+.panel-heading p,
+.brief p,
+.context-card p {
+  font-size: 13px;
+  line-height: 1.5;
+}
+.panel-action.e-btn {
+  color: var(--brand);
+  font-weight: 650;
+  padding: 0 !important;
+}
+.brief {
+  display: grid;
+  gap: 12px;
+}
+.brief strong {
+  font-size: 19px;
+}
+.brief .e-btn {
+  justify-self: start;
+}
+.report-layout {
+  display: grid;
+  gap: 14px;
+}
+.metric-band {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 9px;
+}
+.metric-band strong {
+  font-size: 28px;
+  letter-spacing: -0.04em;
+}
+.metric-band span {
+  color: var(--muted);
+  font-size: 13px;
+}
+.pivot-panel {
+  max-width: 100%;
+  overflow: auto;
+}
+.regions {
+  grid-template-columns: minmax(280px, 1.2fr) minmax(280px, 1fr);
+}
+.region-map {
+  min-height: 280px;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 8px;
+  text-align: center;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--brand-soft) 35%, var(--surface));
+  color: var(--muted);
+}
+.region-map strong {
+  color: var(--text);
+}
+.map-legend {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+}
+.map-legend span:nth-child(1) {
+  color: var(--success);
+}
+.map-legend span:nth-child(2) {
+  color: var(--warning);
+}
+.map-legend span:nth-child(3) {
+  color: var(--danger);
+}
+.country-list {
+  display: grid;
+}
+.country-list .country-button.e-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 2px;
+  width: 100%;
+  min-height: 0;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  border-radius: 0;
+}
+.country-list .country-button.e-btn span:last-of-type {
+  margin-left: auto;
+  text-align: right;
+}
+.country-list strong,
+.country-list small {
+  display: block;
+}
+.country-list small {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 2px;
+}
+.context-card {
+  align-self: start;
+}
+.context-icon {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  background: var(--brand-soft);
+  color: var(--brand);
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+.context-card dl {
+  margin: 16px 0 0;
+}
+.context-card dl div {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+}
+.context-card dt {
+  color: var(--muted);
+}
+.context-card dd {
+  margin: 0;
+  font-weight: 700;
+}
+.assistant-panel {
+  overflow: hidden;
+}
+.assistant-panel .e-aiassistview {
+  border: 0;
+  display: flex;
+  flex-direction: column;
+}
+.assistant-panel .e-aiassistview .e-views {
+  flex: 1;
+  min-height: 0;
+}
+.assistant-panel .e-footer {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  flex: 0 0 auto;
+}
+.assistant-panel .e-textarea-icons-wrapper {
+  align-items: center;
+  width: 100%;
+}
+.assistant-panel .e-assist-textarea {
+  min-height: 48px;
+  line-height: 22px;
+  padding: 12px;
+}
+.assistant-panel .e-footer-icons-wrapper {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+}
+.drawer {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: min(310px, 90vw);
+  padding: 18px 14px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  z-index: 10;
+  box-shadow: 20px 0 60px rgba(0, 0, 0, 0.25);
+}
+.drawer .icon-button {
+  margin-bottom: 18px;
+}
+.skip-link {
+  position: fixed;
+  left: 10px;
+  top: -60px;
+  z-index: 20;
+  padding: 10px;
+  background: var(--brand);
+  color: #fff;
+}
+.skip-link:focus {
+  top: 10px;
+}
+.page-loading {
+  min-height: 240px;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-weight: 600;
+}
+@media (max-width: 1100px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .sidebar {
+    display: none;
+  }
+  .mobile-menu {
+    display: inline-grid !important;
+  }
+  .overview-dashboard,
+  .regions,
+  .insights {
+    grid-template-columns: 1fr;
+  }
+  .overview-trend-panel {
+    grid-column: auto;
+  }
+  .context-card {
+    order: -1;
+  }
+}
+@media (max-width: 680px) {
+  .topbar {
+    padding: 0 16px;
+  }
+  .dataset-status,
+  .profile-pill {
+    display: none;
+  }
+  main {
+    padding: 24px 16px 36px;
+  }
+  .filters {
+    align-items: stretch;
+  }
+  .filters .filter-field {
+    width: 100%;
+  }
+  .filter-intro {
+    width: 100%;
+    padding: 0 0 4px;
+  }
+  .filters .e-control-wrapper {
+    width: 100%;
+  }
+  .reset-filter {
+    margin-left: 0;
+  }
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+  .panel {
+    padding: 16px;
+  }
+  .panel-heading {
+    display: grid;
+  }
+  .inline-select {
+    width: 100%;
+  }
+  .inline-select .e-control-wrapper {
+    width: 100%;
+  }
+  .country-list .country-button.e-btn {
+    padding: 12px 0;
+  }
+  .map-legend {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* Filters that match no records. */
+.empty-state.e-card {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 40px 24px;
+  text-align: center;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.empty-state h2 {
+  margin: 0;
+  color: var(--text);
+}
+.empty-state p {
+  margin: 0;
+  max-width: 44ch;
+}
+
+/* Keyboard focus is always visible, and a mouse click leaves no ring (design-system.md, "Interaction
+   states"). Syncfusion draws nothing when Tab reaches a chart, the map, a map shape, the Pivot or a Grid
+   cell, and its Grid marks a mouse-clicked cell with a focus shadow; its rules are unlayered, hence
+   !important. Validate found these on 2026-10-11 once the focus checks ran on every route. */
+.e-chart:focus-visible,
+.e-accumulationchart:focus-visible,
+.e-maps:focus-visible,
+.e-maps [id*='_shapeIndex_']:focus-visible,
+.e-pivotview:focus-visible,
+.e-grid:focus-visible {
+  outline: 2px solid var(--brand) !important;
+  outline-offset: 2px;
+}
+.e-grid .e-rowcell:focus-visible,
+.e-grid .e-headercell:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--brand) !important;
+}
+.e-grid .e-rowcell.e-focused:not(:focus-visible),
+.e-grid .e-headercell.e-focused:not(:focus-visible) {
+  box-shadow: none !important;
+}

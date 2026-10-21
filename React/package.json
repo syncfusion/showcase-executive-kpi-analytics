@@ -1,0 +1,52 @@
+{
+  "name": "executive-kpi-analytics",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "generate:data": "node scripts/generate-fixtures.mjs",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css,json}\" \"scripts/**/*.mjs\" \"*.{ts,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,css,json}\" \"scripts/**/*.mjs\" \"*.{ts,json}\"",
+    "build": "npm run generate:data && tsc --noEmit && vite build && node scripts/precompress.mjs",
+    "build:azure": "npm run build",
+    "build:cloudflare": "npm run build",
+    "test": "node --import tsx --test src/domain/*.test.ts",
+    "test:browser": "node browser-check.mjs --config browser-check.config.json",
+    "preview": "vite preview --host 127.0.0.1",
+    "start": "node server.mjs",
+    "evidence": "node run-evidence.mjs --plan evidence-plan.json",
+    "package": "node scripts/package-hosting.mjs",
+    "test:hosting": "node scripts/hosting-check.mjs"
+  },
+  "dependencies": {
+    "@syncfusion/ej2-react-buttons": "34.1.29",
+    "@syncfusion/ej2-react-calendars": "34.1.29",
+    "@syncfusion/ej2-react-charts": "34.1.29",
+    "@syncfusion/ej2-react-dropdowns": "34.1.29",
+    "@syncfusion/ej2-react-grids": "34.1.29",
+    "@syncfusion/ej2-react-interactive-chat": "34.1.29",
+    "@syncfusion/ej2-react-maps": "34.1.29",
+    "@syncfusion/ej2-react-navigations": "34.1.29",
+    "@syncfusion/ej2-react-pivotview": "34.1.29",
+    "@syncfusion/ej2-react-popups": "34.1.29",
+    "@syncfusion/ej2-tailwind3-dark-theme": "34.1.29",
+    "@syncfusion/ej2-tailwind3-theme": "34.1.29",
+    "lucide-react": "1.48.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "24.10.1",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "prettier": "3.7.4",
+    "tsx": "4.21.0",
+    "typescript": "7.0.2",
+    "vite": "8.3.1"
+  }
+}

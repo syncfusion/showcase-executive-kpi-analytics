@@ -1,0 +1,6 @@
+name: executive-kpi-analytics
+services:
+  web:
+    project: .
+    host: appservice
+    language: js

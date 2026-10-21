@@ -1,0 +1,264 @@
+.app-shell {
+  --app-shell-expanded: 240px;
+  --app-shell-docked: 64px;
+  --app-shell-motion: 200ms ease;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app-shell-skip {
+  left: -9999px;
+  position: absolute;
+  top: 8px;
+  z-index: 2000;
+}
+.app-shell-skip:focus {
+  left: 8px;
+  padding: 8px 12px;
+  background: var(--surface);
+  color: var(--text);
+  outline: 2px solid var(--brand);
+}
+
+#executive-sidebar.e-sidebar {
+  height: 100dvh;
+  overflow-x: hidden;
+  background: var(--surface) !important;
+  border-right: 1px solid var(--border) !important;
+}
+#executive-sidebar:not(.e-open):not(.e-close) {
+  visibility: hidden;
+}
+.app-shell-nav {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 18px 0;
+  gap: 16px;
+}
+.app-shell-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 0 14px;
+}
+.app-shell-logo {
+  display: inline-grid;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--brand);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+}
+.app-shell-brand-text {
+  display: grid;
+  min-width: 0;
+  line-height: 1.25;
+}
+.app-shell-brand-text strong {
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.app-shell-brand-text small {
+  color: var(--muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.app-shell-close {
+  margin-left: auto;
+}
+.app-shell-links {
+  display: grid;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0 12px;
+}
+.app-shell-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 42px;
+  padding: 0 10px;
+  border-radius: 7px;
+  color: var(--muted);
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.app-shell-link:hover {
+  background: var(--brand-soft);
+  color: var(--brand);
+}
+.app-shell-link[aria-current='page'] {
+  background: var(--brand-soft);
+  color: var(--brand);
+  font-weight: 700;
+}
+.app-shell-link:focus-visible,
+.app-shell-icon-button.e-btn:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+.app-shell-link-icon {
+  flex: 0 0 20px;
+}
+.app-shell-link-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.app-shell-footer {
+  margin-top: auto;
+  padding: 0 16px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.app-shell-footer p {
+  margin: 10px 0 0;
+}
+.app-shell[data-nav='docked'] .app-shell-brand {
+  padding: 0 12px;
+}
+.app-shell[data-nav='docked'] .app-shell-brand-text,
+.app-shell[data-nav='docked'] .app-shell-link-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.app-shell[data-nav='docked'] .app-shell-link {
+  justify-content: center;
+  padding: 0;
+  gap: 0;
+}
+.app-shell[data-nav='docked'] .app-shell-footer {
+  display: none;
+}
+.app-shell-workspace {
+  min-width: 0;
+  min-height: 100dvh;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  transition: margin-left var(--app-shell-motion);
+}
+.app-shell[data-nav='expanded'] .app-shell-workspace {
+  margin-left: var(--app-shell-expanded);
+}
+.app-shell[data-nav='docked'] .app-shell-workspace {
+  margin-left: var(--app-shell-docked);
+}
+.app-shell[data-nav='drawer'] .app-shell-workspace {
+  margin-left: 0;
+}
+.app-shell-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 64px;
+  padding: 0 20px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.app-shell-header-start,
+.app-shell-header-end {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+/* The actions keep their size and the breadcrumb gives way: on Regional Performance (the longest
+   breadcrumb) the actions spilled 2px past the window at 1024px and on phones. */
+.app-shell-header-start {
+  flex: 1 1 auto;
+}
+.app-shell-header-end {
+  flex: 0 0 auto;
+}
+.app-shell-icon-button.e-btn {
+  display: inline-grid;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  color: var(--muted);
+  background: transparent;
+}
+.app-shell-icon-button.e-btn:hover {
+  background: var(--brand-soft);
+  color: var(--brand);
+}
+.app-shell-main {
+  flex: 1;
+  min-width: 0;
+  padding: 28px 32px 40px;
+  outline: none;
+}
+.app-breadcrumb.e-breadcrumb {
+  min-width: 0;
+  overflow: hidden;
+}
+.app-breadcrumb .e-breadcrumb-text {
+  color: var(--muted);
+}
+/* When the breadcrumb gives way to the header actions, the page name ends in an ellipsis rather than a
+   hard cut ("Region" for Regional Performance at 1024px). */
+.app-breadcrumb.e-breadcrumb ol {
+  flex-wrap: nowrap;
+  min-width: 0;
+  max-width: 100%;
+}
+.app-breadcrumb .e-breadcrumb-item:last-child {
+  min-width: 0;
+  flex: 0 1 auto;
+}
+.app-breadcrumb .e-breadcrumb-item:last-child .e-breadcrumb-text {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+}
+/* The text sits in Syncfusion's .e-anchor-wrap; the ellipsis has to be on that element. */
+.app-breadcrumb .e-breadcrumb-item:last-child .e-anchor-wrap {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (max-width: 1023.98px) {
+  .app-shell-main {
+    padding: 24px 20px 36px;
+  }
+}
+@media (max-width: 680px) {
+  .app-shell-header {
+    padding: 0 12px;
+  }
+  .app-shell-main {
+    padding: 20px 16px 32px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .app-shell-workspace {
+    transition: none;
+  }
+}
